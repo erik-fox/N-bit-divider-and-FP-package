@@ -7,13 +7,13 @@ wire [N-1:0] w;
 genvar i;
 generate
 	for(i=0;i<N;i++)
-	begin
+	begin:adder
 		if(i==0)
 			fulladder m( a[i],b[i],1'b0, s[i],w[i]);
 		else if(i==N-1)
-			fulladder m(a[i],b[i],w[i],s[i], cout);
+			fulladder m(a[i],b[i],w[i-1],s[i], cout);
 		else
-			fulladder m(a[i],b[i],w[i],s[i],w[i]);
+			fulladder m(a[i],b[i],w[i-1],s[i],w[i]);
 	end
 endgenerate
 
