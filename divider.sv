@@ -32,7 +32,7 @@ generate
 		begin
 			nbitshifter #((QUOTIENTLEN-i),DIVISORLEN,DATAPATHLEN) n(divisor, w[i]);
 			twoscomplement#(DATAPATHLEN) t(w[i],w[i+1]);
-			nbitadder #(DATAPATHLEN) a( w[i-1],w[i+1],quotient[QUOTIENTLEN-i]);
+			nbitadder #(DATAPATHLEN) a( w[i-1],w[i+1], w[i+2],quotient[QUOTIENTLEN-i]);
 			mux2_1 #(DATAPATHLEN) m(w[i-1],w[i+2],quotient[QUOTIENTLEN-i],w[i+3]);
 		end	
 	end
