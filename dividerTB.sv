@@ -30,18 +30,11 @@ begin
         	begin
           		$display("error remainder: %d, expected: %d", remainder, (dividend - ((dividend/divisor)*divisor)));
         	end
-<<<<<<< HEAD
 /*     	 	else
 
          		$display("dividend: %d divisor: %d quotient: %d remainder %d", dividend, divisor, quotient, remainder);
 */    
-=======
-       	 	else
-			/*
-         		$display("dividend: %d divisor: %d quotient: %d remainder %d", dividend, divisor, quotient, remainder);
-			*/
-      
->>>>>>> 93c8e7304e15555b30dc26a2df5c06681c56f680
+
       	end        
 end
   
