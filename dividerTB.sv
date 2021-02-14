@@ -1,6 +1,6 @@
 module top();
-  parameter DIVIDEND =6;
-  parameter DIVISOR =3;
+  parameter DIVIDEND =16;
+  parameter DIVISOR =8;
   bit [DIVIDEND-1:0] dividend;
   bit [DIVISOR-1:0] divisor;
   wire [DIVIDEND-1:0] quotient;
@@ -9,11 +9,16 @@ module top();
   initial
     begin
       $dumpfile("dump.vcd"); $dumpvars;
-      for(int i=0; i<=(1<<(DIVISOR+DIVIDEND)); i++)
+      for(longint i=0; i<=(1<<(DIVISOR+DIVIDEND)); i++)
       begin
-        	#10
       		{divisor,dividend}=i;
-      end
+        	#10
+		if(quotient[DIVIDEND-1:0]!==(dividend/divisor))
+		begin
+			$display("quotient %d", quotient[DIVIDEND-1:0]);
+			$display("%d", (dividend/divisor));
+		end
+	end
     end
   
 endmodule
