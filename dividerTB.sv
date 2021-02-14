@@ -17,17 +17,23 @@ begin
         	#10
 		if(quotient[DIVIDEND-1:0]!==(dividend/divisor))
 		begin
-         		$display("error");
-         		$display("quotient %d, expected: %d", quotient[DIVIDEND-1:0],(dividend/divisor));
-            		$display("remainder: %d, expected: %d", remainder, (dividend - ((dividend/divisor)*divisor)));
+			if(divisor===0)
+				$display("Divide by zero");
+         		else
+			begin
+				$display("error");
+         			$display("quotient %d, expected: %d", quotient[DIVIDEND-1:0],(dividend/divisor));
+            			$display("remainder: %d, expected: %d", remainder, (dividend - ((dividend/divisor)*divisor)));
+			end
 		end
        		else if(remainder!==dividend - (quotient*divisor))
         	begin
           		$display("error remainder: %d, expected: %d", remainder, (dividend - ((dividend/divisor)*divisor)));
         	end
-       	 	else
+/*     	 	else
+
          		$display("dividend: %d divisor: %d quotient: %d remainder %d", dividend, divisor, quotient, remainder);
-      
+*/    
       	end        
 end
   
