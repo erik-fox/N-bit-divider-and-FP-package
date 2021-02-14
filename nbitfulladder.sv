@@ -1,7 +1,7 @@
 module nbitfulladder #(parameter N= 8) (a,b, s, cout);
-input [N-1:0] a,b;
-output [N-1:0] s;
-output cout;
+input bit [N-1:0] a,b;
+output bit  [N-1:0] s;
+output bit cout;
 
 wire [N-1:0] w;
 genvar i;
