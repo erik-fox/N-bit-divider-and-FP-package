@@ -1,6 +1,6 @@
 module fulladder (a,b, cin, s, cout);
-input a, b, cin;
-output logic s, cout;
+input bit a, b, cin;
+output bit s, cout;
 
 always_comb
 begin
@@ -9,3 +9,5 @@ begin
 end
 
 endmodule
+
+
