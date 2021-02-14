@@ -9,7 +9,7 @@ module top();
   initial
     begin
       $dumpfile("dump.vcd"); $dumpvars;
-      for(longint i=0; i<=(1<<(DIVISOR+DIVIDEND)); i++)
+      for(int i=0; i<=(1<<(DIVISOR+DIVIDEND)); i++)
       begin
       		{divisor,dividend}=i;
         	#10
