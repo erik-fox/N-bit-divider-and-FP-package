@@ -3,37 +3,39 @@ parameter N=4;
 localparam QUOTIENTLEN=DIVIDENDLEN;
 localparam REMAINDERLEN = DIVISORLEN; 
 localparam DATAPATHLEN = DIVIDENDLEN + DIVISORLEN -1;
-input [DIVIDENDLEN-1:0]dividend;
-input [DIVISORLEN-1:0]divisor;
-output [QUOTIENTLEN-1:0]quotient; 
-output [REMAINDERLEN-1:0]remainder;
+input bit[DIVIDENDLEN-1:0]dividend;
+input bit[DIVISORLEN-1:0]divisor;
+output bit [QUOTIENTLEN-1:0]quotient; 
+output bit [REMAINDERLEN-1:0]remainder;
 
-wire [DATAPATHLEN-1:0] w [(N*QUOTIENTLEN)];
+wire [DATAPATHLEN-1:0] w1 [(QUOTIENTLEN)];
+wire [DATAPATHLEN-1:0] w2 [(QUOTIENTLEN)];
+wire [DATAPATHLEN-1:0] w3 [(QUOTIENTLEN)];
+wire [DATAPATHLEN-1:0] w4 [(QUOTIENTLEN)];
 genvar i;
 
 generate
-	for (i=0;i<QUOTIENTLEN-1;i=i+N)
+	for (i=0;i<=(QUOTIENTLEN)-1;i++)
 	begin:divider
 		if(i==0)
 		begin
-			nbitshifter #((QUOTIENTLEN-i),DIVISORLEN,DATAPATHLEN) n(divisor,w[i]);
-			twoscomplement#(DATAPATHLEN) t(w[i],w[i+1]);
-			nbitadder #(DATAPATHLEN) a(dividend,w[i+1],w[i+2],quotient[QUOTIENTLEN-i]);
-			mux2_1 #(DATAPATHLEN) m(dividend,w[i+2],quotient[QUOTIENTLEN-i],w[i+3]);
+        		nbitshifter #((QUOTIENTLEN-1-i),DIVISORLEN,DATAPATHLEN) n(divisor,w1[i]);
+          		twoscomplement#(DATAPATHLEN) t(w1[i],w2[i]);
+          		nbitfulladder #(DATAPATHLEN) a(dividend,w2[i],w3[i],quotient[QUOTIENTLEN-1-i]);
+          		mux2_1 #(DATAPATHLEN) m(dividend,w3[i],quotient[QUOTIENTLEN-1-i],w4[i]);
 		end
 		else if(i==QUOTIENTLEN-1)
 		begin
-			nbitshifter #((QUOTIENTLEN-i),DIVISORLEN,DATAPATHLEN) n(divisior,w[i]);
-			twoscomplement#(DATAPATHLEN) t(w[i],w[i+1]);
-			nbitadder #(DATAPATHLEN) a(w[i-1],w[i+1],w[i+2],quotient[QUOTIENTLEN-i]);
-			mux2_1 #(DATAPATHLEN) m(w[i-1], w[i+2], quotient[QUOTIENTLEN-i],remainder);
+        		twoscomplement#(DATAPATHLEN) t(divisor,w2[i]);
+          		nbitfulladder #(DATAPATHLEN) a(w4[i-1],w2[i],w3[i],quotient[QUOTIENTLEN-1-i]);
+          		mux2_1 #(DATAPATHLEN) m(w4[i-1], w3[i], quotient[QUOTIENTLEN-1-i],remainder);
 		end
 		else
 		begin
-			nbitshifter #((QUOTIENTLEN-i),DIVISORLEN,DATAPATHLEN) n(divisor, w[i]);
-			twoscomplement#(DATAPATHLEN) t(w[i],w[i+1]);
-			nbitadder #(DATAPATHLEN) a( w[i-1],w[i+1], w[i+2],quotient[QUOTIENTLEN-i]);
-			mux2_1 #(DATAPATHLEN) m(w[i-1],w[i+2],quotient[QUOTIENTLEN-i],w[i+3]);
+          		nbitshifter #((QUOTIENTLEN-1-i),DIVISORLEN,DATAPATHLEN) n(divisor, w1[i]); 
+         		twoscomplement#(DATAPATHLEN) t(w1[i], w2[i]);
+          		nbitfulladder #(DATAPATHLEN) a( w4[i-1],w2[i], w3[i],quotient[QUOTIENTLEN-1-i]);
+          		mux2_1 #(DATAPATHLEN) m(w4[i-1],w3[i],quotient[QUOTIENTLEN-1-i],w4[i]);
 		end	
 	end
 endgenerate
