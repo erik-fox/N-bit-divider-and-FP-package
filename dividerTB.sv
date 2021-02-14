@@ -26,7 +26,9 @@ begin
           		$display("error remainder: %d, expected: %d", remainder, (dividend - ((dividend/divisor)*divisor)));
         	end
        	 	else
+			/*
          		$display("dividend: %d divisor: %d quotient: %d remainder %d", dividend, divisor, quotient, remainder);
+			*/
       
       	end        
 end
