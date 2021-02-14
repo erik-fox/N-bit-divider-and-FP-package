@@ -1,6 +1,6 @@
 module top();
-parameter DIVIDEND =3;
-parameter DIVISOR =2;
+parameter DIVIDEND =16;
+parameter DIVISOR =8;
 bit [DIVIDEND-1:0] dividend;
 bit [DIVISOR-1:0] divisor;
 wire [DIVIDEND-1:0] quotient;
