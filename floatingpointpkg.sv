@@ -13,10 +13,16 @@ function float fpnumberfromcomponents(input bit sign, bit [EXPONENT_BITS-1:0]exp
 	fpnumberfromcomponents.exponent=exp;
 	fpnumberfromcomponents.fraction=frac;
 endfunction	
-/*
+
 //construct floating point number from short real (return type float)
 function float fpnumberfromshortreal(input shortreal sr);
-
+	bit [31:0] data;
+	data=$shortrealtobits(sr);
+	fpnumberfromshortreal.sign= data[31];
+	fpnumberfromshortreal.exponent= data[EXPONENT_BITS+FRACTION_BITS-1:FRACTION_BITS];//[30:23]
+	fpnumberfromshortreal.fraction= data[FRACTION_BITS-1:0];//[22:0]
+endfunction
+	
 //return shortreal representation of floating point number
 function shortreal shortrealfromfpnumber (input float f);
 
@@ -33,5 +39,7 @@ function bit isinfinity(float f);
 function void printfp(float f);
 
 //NOTES: shortreal is single precison (32bit) fp number; $shortrealtobits() $bitstoshortreal()
-*/
+//$shortrealtobits(shortreal_val) -> 32bits; 
+//$bitstoshortreal(bit_val) -> shortreal ; 
+
 endpackage
