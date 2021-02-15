@@ -6,10 +6,14 @@ typedef struct{
 	bit [EXPONENT_BITS-1:0] exponent;
 	bit [FRACTION_BITS-1:0] fraction;
 }float;
-/*
+
 //construct a floating point number from component (return type float)
 function float fpnumberfromcomponents(input bit sign, bit [EXPONENT_BITS-1:0]exp, bit [FRACTION_BITS-1:0]frac);
-
+	fpnumberfromcomponents.sign=sign;
+	fpnumberfromcomponents.exponent=exp;
+	fpnumberfromcomponents.fraction=frac;
+endfunction	
+/*
 //construct floating point number from short real (return type float)
 function float fpnumberfromshortreal(input shortreal sr);
 
