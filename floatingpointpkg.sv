@@ -28,20 +28,28 @@ endfunction
 	
 //return shortreal representation of floating point number
 function shortreal shortrealfromfpnumber (input float f);
-	shortrealfromfpnumber={f.sign,f.exponent,f.fraction};
+	shortrealfromfpnumber=$bitstoshortreal({f.sign,f.exponent,f.fraction});
 endfunction
 
 //retrun true(1) if f is zero
 function bit iszero(float f);
+	iszero= (!f.exponent)&& (!f.fraction); //if the exponent and the fraction are zero
+endfunction
 
 //return true if f is NaN
 function bit isnan(float f);
+	isnan=(('1 && f.exponent)&& (f.fraction));//exponent is all 1's and fraction is anything but zero
+endfunction
 
 //return true if f is infinity (+/-)
 function bit isinfinity(float f);
+	isinfinity=(('1 && f.exponent)&& (!f.fraction));//exponent is all 1's and fraction is all zero
+endfunction
 
 //print a floating point number's components (sign,exponent,fraction)
 function void printfp(float f);
+	$display("sign: %d exponent: %d fraction: %d", f.sign,f.exponent,f.fraction);
+endfunction
 
 //NOTES: shortreal is single precison (32bit) fp number; $shortrealtobits() $bitstoshortreal()
 //$shortrealtobits(shortreal_val) -> 32bits; 
