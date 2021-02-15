@@ -1,5 +1,4 @@
 module top();
-
-import 
+import floatingpoint::*;
 
 endmodule
