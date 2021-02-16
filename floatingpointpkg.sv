@@ -24,6 +24,10 @@ function shortreal shortrealfromfpnumber (input float f);
 	shortrealfromfpnumber=$bitstoshortreal({f.sign,f.exponent,f.fraction});
 endfunction
 
+//return true if f is denormalized number
+function bit isdenorm(float f);
+	isdenorm=(!f.exponent)&&(f.fraction);//exponent is zero and fraction is nonzero
+endfunction
 //retrun true(1) if f is zero
 function bit iszero(float f);
 	iszero= (!f.exponent)&& (!f.fraction); //if the exponent and the fraction are zero
@@ -31,7 +35,7 @@ endfunction
 
 //return true if f is NaN
 function bit isnan(float f);
-	isnan=(('1 == f.exponent)&& (f.fraction));//exponent is all 1's and fraction is anything but zero
+	isnan=(('1 == f.exponent)&& (f.fraction));//exponent is all 1's and fraction is non zero
 endfunction
 
 //return true if f is infinity (+/-)
