@@ -31,12 +31,12 @@ endfunction
 
 //return true if f is NaN
 function bit isnan(float f);
-	isnan=(('1 && f.exponent)&& (f.fraction));//exponent is all 1's and fraction is anything but zero
+	isnan=(('1 == f.exponent)&& (f.fraction));//exponent is all 1's and fraction is anything but zero
 endfunction
 
 //return true if f is infinity (+/-)
 function bit isinfinity(float f);
-	isinfinity=(('1 && f.exponent)&& (!f.fraction));//exponent is all 1's and fraction is all zero
+	isinfinity=(('1 == f.exponent)&& (!f.fraction));//exponent is all 1's and fraction is all zero
 endfunction
 
 //print a floating point number's components (sign,exponent,fraction)
